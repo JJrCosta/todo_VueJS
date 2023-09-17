@@ -9,18 +9,10 @@
     tarefaTemp: '',
     tarefas: [
     {
-      titulo: 'Estudar ES6',
+      titulo: 'Exemplo de tarefa',
       finalizada: false
     },
-    {
-      titulo: 'Estudar SASS',
-      finalizada: false
-    },
-    {
-      titulo: 'Estudar VueJS',
-      finalizada: true
-    },
-    ]
+    ],
   })
 
   const getTarefasPendentes = () => {
@@ -51,11 +43,21 @@
     estado.tarefas.push(novaTarefa);
     estado.tarefaTemp = '';
   }
+
+  const exibeMensagem = () => {
+    if (getTarefasPendentes().length == 1) {
+      return `Você possui ${getTarefasPendentes().length} tarefa pendente.`
+    } else if (getTarefasPendentes().length){
+      return `Você possui ${getTarefasPendentes().length} tarefas pendentes.`
+    } else {
+      return 'Você não possui tarefas pendentes'
+    }
+  }
 </script>
 
 <template>
   <div class="container">
-    <Cabecalho :tarefas-pendentes="getTarefasPendentes().length"/>
+    <Cabecalho :exibe-mensagem="exibeMensagem()"/>
     <Formulario :trocar-filtro="evento => estado.filtro = evento.target.value" :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="evento => estado.tarefaTemp = evento.target.value" :cadastra-tarefa="cadastraTarefa" />
     <ListaTarefas :tarefas = "getTarefasFiltradas()" />
   </div>
